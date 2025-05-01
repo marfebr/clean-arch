@@ -23,3 +23,4 @@ type EventDispatcherInterface interface {
 	Has(eventName string, handler EventHandlerInterface) bool
 	Clear()
 }
+

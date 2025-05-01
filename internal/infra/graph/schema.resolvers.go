@@ -7,8 +7,8 @@ package graph
 import (
 	"context"
 
-	"github.com/devfullcycle/20-CleanArch/internal/infra/graph/model"
-	"github.com/devfullcycle/20-CleanArch/internal/usecase"
+	"github.com/marfebr/cleanarch/internal/infra/graph/model"
+	"github.com/marfebr/cleanarch/internal/usecase"
 )
 
 // CreateOrder is the resolver for the createOrder field.
@@ -23,10 +23,9 @@ func (r *mutationResolver) CreateOrder(ctx context.Context, input *model.OrderIn
 		return nil, err
 	}
 	return &model.Order{
-		ID:         output.ID,
-		Price:      float64(output.Price),
-		Tax:        float64(output.Tax),
-		FinalPrice: float64(output.FinalPrice),
+		ID:    output.ID,
+		Price: float64(output.Price),
+		Tax:   float64(output.Tax),
 	}, nil
 }
 
@@ -56,31 +55,3 @@ func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
-
-// !!! WARNING !!!
-// The code below was going to be deleted when updating resolvers. It has been copied here so you have
-// one last chance to move it out of harms way if you want. There are two reasons this happens:
-//  - When renaming or deleting a resolver the old code will be put in here. You can safely delete
-//    it when you're done.
-//  - You have helper methods in this file. Move them out to keep these resolver files clean.
-/*
-	func (r *mutationResolver) ListOrders(ctx context.Context) ([]*model.Order, error) {
-
-}
-func (r *queryResolver) GetOrders(ctx context.Context) ([]*model.Order, error) {
-	orders, err := r.ListOrderUseCase.Execute()
-	if err != nil {
-		return nil, err
-	}
-	entityOrders := make([]*model.Order, len(orders))
-	for i, order := range orders {
-		entityOrders[i] = &model.Order{
-			ID:         order.ID,
-			Price:      float64(order.Price),
-			Tax:        float64(order.Tax),
-			FinalPrice: float64(order.FinalPrice),
-		}
-	}
-	return entityOrders, nil
-}
-*/

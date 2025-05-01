@@ -21,13 +21,15 @@ func NewWebServer(serverPort string) *WebServer {
 	}
 }
 
-func (s *WebServer) AddHandler(path string, handler http.HandlerFunc) {
+func (s *WebServer) AddHandler(method, path string, handler http.HandlerFunc) {
 	s.Handlers[path] = handler
 }
 
 // loop through the handlers and add them to the router
 // register middeleware logger
 // start the server
+// path = "POST /order"
+// handler = webOrderHandler.Create
 func (s *WebServer) Start() {
 	s.Router.Use(middleware.Logger)
 	for path, handler := range s.Handlers {

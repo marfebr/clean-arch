@@ -1,6 +1,14 @@
 package entity
 
-import "errors"
+import (
+	"errors"
+)
+
+var (
+	ErrInvalidOrderID    = errors.New("order ID cannot be empty")
+	ErrInvalidOrderPrice = errors.New("order price must be greater than zero")
+	ErrInvalidOrderTax   = errors.New("order tax must be greater than zero")
+)
 
 type Order struct {
 	ID         string
@@ -10,6 +18,7 @@ type Order struct {
 }
 
 func NewOrder(id string, price float64, tax float64) (*Order, error) {
+
 	order := &Order{
 		ID:    id,
 		Price: price,
@@ -24,13 +33,13 @@ func NewOrder(id string, price float64, tax float64) (*Order, error) {
 
 func (o *Order) IsValid() error {
 	if o.ID == "" {
-		return errors.New("invalid id")
+		return ErrInvalidOrderID
 	}
 	if o.Price <= 0 {
-		return errors.New("invalid price")
+		return ErrInvalidOrderPrice
 	}
 	if o.Tax <= 0 {
-		return errors.New("invalid tax")
+		return ErrInvalidOrderTax
 	}
 	return nil
 }
@@ -42,4 +51,5 @@ func (o *Order) CalculateFinalPrice() error {
 		return err
 	}
 	return nil
+
 }

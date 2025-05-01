@@ -1,5 +1,5 @@
 ## Criar os Endpoints
-- Endpoint REST (GET /order)
+- Endpoint REST (GET /orders)
 - Service ListOrders com GRPC
 - Query ListOrders GraphQL
 
@@ -20,17 +20,25 @@
 
 ### Acesso ao serviço gRPC
 # Exemplo com grpcurl para listar serviços
+```bash
 grpcurl -plaintext localhost:50051 list
-
+```
 # Exemplo para criar uma ordem
+```bash
 grpcurl -plaintext -d '{"id":"1", "price":10.5, "tax":1.5}' localhost:50051 pb.OrderService/CreateOrder
 
+```
 # Exemplo para listar ordens
+
+```bash
 grpcurl -plaintext -d '{}' localhost:50051 pb.OrderService/ListOrders
 
+```
 
+## Acessando Usabndo Evans
 
-Evans
+```bash
+evans --verbose -r repl
 
 package pb
 
@@ -40,3 +48,6 @@ show service
 service OrderService
 
 call ListOrders
+
+
+```

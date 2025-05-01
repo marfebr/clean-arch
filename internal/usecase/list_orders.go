@@ -3,7 +3,7 @@ package usecase
 import (
 	"log/slog"
 
-	"github.com/devfullcycle/20-CleanArch/internal/entity"
+	"github.com/marfebr/cleanarch/internal/entity"
 )
 
 type ListOrderUserCase struct {
@@ -18,7 +18,7 @@ func NewListOrderUserCase(orderRepo entity.OrderRepositoryInterface) *ListOrderU
 }
 func (l *ListOrderUserCase) Execute() ([]OrderOutputDTO, error) {
 
-	orders, err := l.OrderRepository.List()
+	orders, err := l.OrderRepository.FindAll()
 	slog.Debug("List orders Repo", "orders", orders)
 	if err != nil {
 		return nil, err

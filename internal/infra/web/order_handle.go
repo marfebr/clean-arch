@@ -5,9 +5,9 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/devfullcycle/20-CleanArch/internal/entity"
-	"github.com/devfullcycle/20-CleanArch/internal/usecase"
-	"github.com/devfullcycle/20-CleanArch/pkg/events"
+	"github.com/marfebr/cleanarch/internal/entity"
+	"github.com/marfebr/cleanarch/internal/usecase"
+	"github.com/marfebr/cleanarch/pkg/events"
 )
 
 type WebOrderHandler struct {
