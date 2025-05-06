@@ -36,6 +36,7 @@ func main() {
 	defer db.Close()
 
 	rabbitMQChannel := getRabbitMQChannel()
+  
 
 	eventDispatcher := events.NewEventDispatcher()
 	eventDispatcher.Register("OrderCreated", &handler.OrderCreatedHandler{
@@ -75,7 +76,11 @@ func main() {
 }
 
 func getRabbitMQChannel() *amqp.Channel {
-	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+	configs, err := configs.LoadConfig(".")
+	if err != nil {
+		panic(err)
+	}
+	conn, err := amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:%s/", configs.RabUser, configs.RabPass, configs.RabHost, configs.RabPort ))
 	if err != nil {
 		panic(err)
 	}
