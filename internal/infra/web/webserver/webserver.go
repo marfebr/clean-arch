@@ -32,6 +32,7 @@ func (s *WebServer) AddHandler(method, path string, handler http.HandlerFunc) {
 // handler = webOrderHandler.Create
 func (s *WebServer) Start() {
 	s.Router.Use(middleware.Logger)
+  s.Router.Use(middleware.Recoverer)
 	for path, handler := range s.Handlers {
 		s.Router.Handle(path, handler)
 	}
