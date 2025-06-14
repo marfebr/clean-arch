@@ -15,15 +15,20 @@ RUN GOOS=linux CGO_ENABLED=0 go build -ldflags="-w -s" -o server ./cmd/ordersyst
 EXPOSE 8000
 
 
-FROM scratch as prod
+#FROM scratch as prod
+FROM alpine as prod
+
 
 WORKDIR /app
 COPY --from=builder /app/server .
 COPY --from=builder /app/migrations migrations
 COPY --from=builder /app/migrate .
 COPY --from=base /app/cmd/ordersystem/.env /app/.env
+COPY --from=base /app/start.sh /app/start.sh
 
-CMD [ "./server" ]
+RUN chmod +x /app/start.sh
+
+CMD ["/app/start.sh"]
 
 
 
